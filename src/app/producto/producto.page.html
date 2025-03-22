@@ -1,0 +1,55 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- Título del encabezado -->
+    <ion-title>
+      PRODUCTOS  <!-- Texto que se muestra en el encabezado -->
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+
+    <!-- Formulario para Agregar/Editar Productos -->
+    <!-- Aquí se encuentra el formulario para agregar o editar productos -->
+    
+    <!-- Listado de Productos -->
+    <ion-list [inset]="true">
+      <!-- Encabezado de la lista -->
+      <ion-list-header id="title">
+        <!-- Etiqueta de la lista que contiene el texto -->
+        <ion-label>
+          PRODUCTOS EN INVENTARIO  <!-- Texto que se muestra en el encabezado de la lista -->
+        </ion-label>
+      </ion-list-header>
+
+      <!-- Iteración sobre la lista de productos para mostrar cada elemento -->
+      <ion-item *ngFor="let producto of productos">
+        <ion-thumbnail slot="start">
+          <!-- Muestra la imagen del producto en una miniatura -->
+          <ion-img [src]="producto.imagen"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <!-- Muestra el nombre, precio y descripción del producto -->
+          <h2>{{ producto.nombre }}</h2>
+          <p>Precio: {{ producto.precio }}</p>
+          <p>Descripción: {{ producto.descripcion }}</p>
+        </ion-label>
+         <!-- Botones para editar y eliminar el producto -->
+        <ion-button (click)="editarProducto(producto)">Editar</ion-button>
+        <ion-button (click)="eliminarProducto(producto.id)">Eliminar</ion-button>
+      </ion-item>
+    </ion-list>
+    
+    <!-- Sección para agregar o editar un producto -->
+    <ion-item>
+      <ion-input [(ngModel)]="productoTemporal.nombre" placeholder="Nombre"></ion-input>
+      <ion-input [(ngModel)]="productoTemporal.precio" placeholder="Precio" type="number"></ion-input>
+      <ion-input [(ngModel)]="productoTemporal.descripcion" placeholder="Descripción"></ion-input>
+      <ion-input [(ngModel)]="productoTemporal.imagen" placeholder="URL Imagen"></ion-input>
+      <ion-button (click)="productoTemporal.id ? actualizarProducto(productoTemporal.id) : agregarProducto()">
+        {{ productoTemporal.id ? 'Actualizar' : 'Agregar' }}
+      </ion-button>
+    </ion-item>
+  </div>
+</ion-content>
